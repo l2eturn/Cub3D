@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make)",
+      "Bash(timeout 3 ./cub3D resource/maps/abyss.cub)",
+      "Bash(echo \"exit_code: $?\")",
+      "Bash(command -v convert magick)",
+      "Bash(convert --version)",
+      "Bash(convert menu.jpg -resize 1280x720^ -gravity center -extent 1280x720 -quality 95 resource/textures/menu_bg.png)",
+      "Bash(grep -E \"error|warning|Error|cub3D$\")",
+      "Bash(echo \"exit: $?\")"
+    ]
+  }
+}
