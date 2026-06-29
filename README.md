@@ -1,6 +1,5 @@
 # cub3D Survival Horror — Walk-Through
 
-> เขียนถึงน้องเตอร์ จากเฮียที่นั่งเขียนโปรเจคนี้มาตั้งแต่ skeleton จน playable survival-horror loop
 > รวบรวม 32 source files / 3,200+ LOC / 8 sound effects / 24 textures
 > อ่านเป็น story: เริ่มจากหน้าต่างเปล่า → จบที่เกมผีเล่นได้จริง
 
