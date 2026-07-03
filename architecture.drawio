@@ -1,329 +1,280 @@
-<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1400" math="0" shadow="0">
-  <root>
-    <mxCell id="0" />
-    <mxCell id="1" parent="0" />
-
-    <!-- TITLE -->
-    <mxCell id="2" value="cub3D — Architecture Overview (MLX42 / Survival Horror Reference)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="300" y="10" width="900" height="40" as="geometry" />
-    </mxCell>
-
-    <!-- ===== SECTION 1: STARTUP FLOW ===== -->
-    <mxCell id="3" value="① STARTUP (runs once)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="20" y="58" width="260" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="4" value="&lt;b&gt;map.cub&lt;/b&gt;&lt;br&gt;NO/SO/WE/EA paths&lt;br&gt;F/C colors + grid" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;dashed=1;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="20" y="85" width="120" height="65" as="geometry" />
-    </mxCell>
-
-    <mxCell id="5" value="&lt;b&gt;main.c&lt;/b&gt;&lt;br&gt;memset(&amp;game,0)&lt;br&gt;entry point" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="185" y="85" width="120" height="65" as="geometry" />
-    </mxCell>
-
-    <mxCell id="6" value="&lt;b&gt;parse_cub()&lt;/b&gt;&lt;br&gt;parse_elements&lt;br&gt;parse_map&lt;br&gt;validate_map (flood-fill)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="355" y="80" width="130" height="75" as="geometry" />
-    </mxCell>
-
-    <mxCell id="7" value="&lt;b&gt;init_mlx()&lt;/b&gt;&lt;br&gt;window + screen&lt;br&gt;image buffer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="535" y="85" width="120" height="65" as="geometry" />
-    </mxCell>
-
-    <mxCell id="8" value="&lt;b&gt;load_textures()&lt;/b&gt;&lt;br&gt;PNG → mlx_image&lt;br&gt;4 types × 4 sides" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="705" y="85" width="130" height="65" as="geometry" />
-    </mxCell>
-
-    <mxCell id="9" value="&lt;b&gt;set hooks&lt;/b&gt;&lt;br&gt;key_hook&lt;br&gt;mouse_hook&lt;br&gt;render_frame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="885" y="80" width="120" height="75" as="geometry" />
-    </mxCell>
-
-    <mxCell id="10" value="&lt;b&gt;mlx_loop()&lt;/b&gt;&lt;br&gt;blocks forever&lt;br&gt;fires ~60fps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="1055" y="85" width="120" height="65" as="geometry" />
-    </mxCell>
-
-    <!-- Startup arrows -->
-    <mxCell id="11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="5" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="7" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="7" target="8" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="8" target="9" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="9" target="10" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-
-    <!-- ===== STATE MACHINE (top right) ===== -->
-    <mxCell id="17" value="② STATE MACHINE" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="1230" y="58" width="220" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="18" value="game-&gt;state" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1240" y="78" width="130" height="80" as="geometry" />
-    </mxCell>
-
-    <mxCell id="19" value="&lt;b&gt;STATE_MENU&lt;/b&gt;&lt;br&gt;render_menu()&lt;br&gt;handle_menu_key()&lt;br&gt;sensitivity slider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="1430" y="58" width="150" height="70" as="geometry" />
-    </mxCell>
-
-    <mxCell id="20" value="&lt;b&gt;STATE_PLAYING&lt;/b&gt;&lt;br&gt;full game loop&lt;br&gt;(see Section 3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="1430" y="145" width="150" height="60" as="geometry" />
-    </mxCell>
-
-    <mxCell id="21" value="MENU" style="edgeStyle=elbowEdgeStyle;" edge="1" source="18" target="19" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="22" value="PLAYING" style="edgeStyle=elbowEdgeStyle;" edge="1" source="18" target="20" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="23" value="each frame" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="10" target="18" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-
-    <!-- ===== SECTION 3: GAME LOOP CONTAINER ===== -->
-    <mxCell id="24" value="③ PER-FRAME LOOP — render_frame(t_game *game)   [src/render/render_frame.c]" style="swimlane;startSize=30;fillColor=#fffde7;strokeColor=#d6b656;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="20" y="195" width="1180" height="760" as="geometry" />
-    </mxCell>
-
-    <!-- UPDATE sub-container -->
-    <mxCell id="25" value="UPDATE phase (state changes before draw)" style="swimlane;startSize=28;fillColor=#e3f2fd;strokeColor=#6c8ebf;fontSize=10;fontStyle=1;" vertex="1" parent="24">
-      <mxGeometry x="20" y="40" width="290" height="690" as="geometry" />
-    </mxCell>
-
-    <mxCell id="26" value="update_mouse_look()&lt;br&gt;&lt;font color='#555555'&gt;mouse.c — poll pos, rotate, warp center&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="38" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="27" value="update_player()&lt;br&gt;&lt;font color='#555555'&gt;player.c — WASD move, rotate, stamina&lt;br&gt;split-axis collision (slide not stick)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="96" width="260" height="55" as="geometry" />
-    </mxCell>
-    <mxCell id="28" value="update_ghosts()&lt;br&gt;&lt;font color='#555555'&gt;ghost_ai.c — chase + sin wobble&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="161" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="29" value="update_pickups()&lt;br&gt;&lt;font color='#555555'&gt;pickups.c — walk-over consume, respawn tick&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="219" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="30" value="update_aim()&lt;br&gt;&lt;font color='#555555'&gt;combat.c — crosshair red/white feedback&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="277" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="31" value="dialog_update()&lt;br&gt;&lt;font color='#555555'&gt;dialog.c — subtitle timer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="335" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="32" value="update_lighting() + ambient_scare_tick()&lt;br&gt;&lt;font color='#555555'&gt;audio.c — fog flicker, random growl trigger&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="393" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="33" value="update_npc() + update_jumpscare()&lt;br&gt;&lt;font color='#555555'&gt;npc.c / jumpscare.c — interact + scare anim&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="451" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="34" value="update_combat() + update_weapon_anim()&lt;br&gt;&lt;font color='#555555'&gt;combat.c / gun.c — DMG tick, win check&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="509" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="35" value="update_doors()&lt;br&gt;&lt;font color='#555555'&gt;door.c — slide animation timer tick&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="25">
-      <mxGeometry x="15" y="567" width="260" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="36" value="anim_tick++" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="25">
-      <mxGeometry x="15" y="635" width="260" height="38" as="geometry" />
-    </mxCell>
-
-    <!-- RENDER sub-container -->
-    <mxCell id="37" value="RENDER phase (write pixels to screen buffer)" style="swimlane;startSize=28;fillColor=#fff3e0;strokeColor=#d79b00;fontSize=10;fontStyle=1;" vertex="1" parent="24">
-      <mxGeometry x="330" y="40" width="330" height="690" as="geometry" />
-    </mxCell>
-
-    <mxCell id="38" value="render_world(game)  ×WIDTH(1280) raycasts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;fontStyle=1;" vertex="1" parent="37">
-      <mxGeometry x="15" y="38" width="300" height="38" as="geometry" />
-    </mxCell>
-    <mxCell id="39" value="  init_ray() → camera_x, ray_dir_x/y&lt;br&gt;  init_step() → side_dist, step_x/y&lt;br&gt;  perform_dda() → hit cell + hit_type&lt;br&gt;  calc_wall_data() → perp_dist, line_h" style="text;html=1;align=left;fillColor=#fffde7;strokeColor=#d79b00;fontSize=9;rounded=1;" vertex="1" parent="37">
-      <mxGeometry x="25" y="84" width="290" height="72" as="geometry" />
-    </mxCell>
-    <mxCell id="40" value="draw_column() — render_wall.c&lt;br&gt;&lt;font color='#555555'&gt;select tex by wall_type+side, Q8 fog shade&lt;br&gt;door: full-stretch + slide offset&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="164" width="300" height="55" as="geometry" />
-    </mxCell>
-    <mxCell id="41" value="draw_flat() — render_flat.c&lt;br&gt;&lt;font color='#555555'&gt;floor + ceiling solid fill (F/C colors)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="228" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="42" value="render_sprites() — sprite.c&lt;br&gt;&lt;font color='#555555'&gt;sort dist² desc, project via inv-cam matrix&lt;br&gt;Z-buffer check per column, Q16 scaler&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="290" width="300" height="58" as="geometry" />
-    </mxCell>
-    <mxCell id="43" value="apply_vignette() — vignette.c&lt;br&gt;&lt;font color='#555555'&gt;darken edges (step=2 perf trick)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="358" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="44" value="render_gun() — gun.c&lt;br&gt;&lt;font color='#555555'&gt;weapon overlay + bob + recoil offset&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="416" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="45" value="render_minimap() — minimap.c&lt;br&gt;&lt;font color='#555555'&gt;top-left tile overlay, door color by state&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="474" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="46" value="render_hud() — hud.c&lt;br&gt;&lt;font color='#555555'&gt;HP bar, stamina bar, crosshair (aim_on_target→red)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="532" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="47" value="render_jumpscare() / render_npc_dialog()&lt;br&gt;&lt;font color='#555555'&gt;jumpscare.c / dialog.c&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="590" width="300" height="48" as="geometry" />
-    </mxCell>
-    <mxCell id="47b" value="render_cheat() / render_settings() / render_menu()&lt;br&gt;&lt;font color='#555555'&gt;cheat.c / settings.c / menu.c (gated by state)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="37">
-      <mxGeometry x="15" y="648" width="300" height="30" as="geometry" />
-    </mxCell>
-
-    <!-- FLUSH sub-container -->
-    <mxCell id="48" value="FLUSH (put buffer to screen)" style="swimlane;startSize=28;fillColor=#fce4ec;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="24">
-      <mxGeometry x="680" y="40" width="330" height="185" as="geometry" />
-    </mxCell>
-    <mxCell id="49" value="mlx_put_image_to_window()&lt;br&gt;&lt;font color='#555555'&gt;+ screen shake offset (sx,sy) from shake_offset()&lt;br&gt;head bob: sy -= |sin(tick)|*amp when walking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#b85450;fontSize=10;" vertex="1" parent="48">
-      <mxGeometry x="15" y="35" width="300" height="62" as="geometry" />
-    </mxCell>
-    <mxCell id="50" value="render_text_overlay() — mlx_text.c&lt;br&gt;&lt;font color='#555555'&gt;mlx_string_put ON TOP of window&lt;br&gt;ammo / kills / death msg / win msg&lt;br&gt;Must come AFTER put_image (or gets overwritten)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#b85450;fontSize=10;" vertex="1" parent="48">
-      <mxGeometry x="15" y="106" width="300" height="68" as="geometry" />
-    </mxCell>
-
-    <!-- Key notes inside game loop -->
-    <mxCell id="51" value="⚡ zbuf[1280]&lt;br&gt;Wall perp_dist stored per column&lt;br&gt;during render_world.&lt;br&gt;Sprite Z-test: transform_y &lt; zbuf[x]&lt;br&gt;→ wall occludes sprite column" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="24">
-      <mxGeometry x="680" y="250" width="230" height="100" as="geometry" />
-    </mxCell>
-
-    <mxCell id="52" value="🎮 Events (async)&lt;br&gt;key_hook() — events.c&lt;br&gt;Sets flags on t_player:&lt;br&gt;  move_fb / move_lr / rotate&lt;br&gt;  sprint / weapon switch&lt;br&gt;DO NOT move directly in hook&lt;br&gt;→ update_player() reads flags each frame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;" vertex="1" parent="24">
-      <mxGeometry x="680" y="370" width="240" height="115" as="geometry" />
-    </mxCell>
-
-    <mxCell id="53" value="🚪 Door State Machine&lt;br&gt;DOOR_CLOSED → DOOR_OPENING&lt;br&gt;→ DOOR_OPEN → DOOR_CLOSING&lt;br&gt;Map cell stays 'D' always.&lt;br&gt;Passability check:&lt;br&gt;  is_blocked: D + !OPEN → blocked&lt;br&gt;  DDA: D + OPEN → ray passes through" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#82b366;fontSize=10;align=left;" vertex="1" parent="24">
-      <mxGeometry x="680" y="505" width="250" height="125" as="geometry" />
-    </mxCell>
-
-    <mxCell id="53b" value="🎯 Combat Hit Detection&lt;br&gt;shoot() → find_target()&lt;br&gt;  dot product: fwd = dx·dir_x + dy·dir_y&lt;br&gt;  lat = dx·(-dir_y) + dy·dir_x&lt;br&gt;  hit if: fwd &gt; 0 &amp;amp;&amp;amp; fwd &lt; range&lt;br&gt;         &amp;amp;&amp;amp; |lat| &lt; radius&lt;br&gt;Weapon: machete=short/wide, gun=long/narrow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#5c6bc0;fontSize=10;align=left;" vertex="1" parent="24">
-      <mxGeometry x="680" y="650" width="270" height="130" as="geometry" />
-    </mxCell>
-
-    <!-- DDA fog note -->
-    <mxCell id="54" value="🌫 Distance Fog (DOOM colormap-inspired)&lt;br&gt;fog_q8 = (int)( clamp(1 - (dist-FOG_START)&lt;br&gt;              /(FOG_END-FOG_START), FOG_FLOOR, 1.0)&lt;br&gt;            * light_mult * 256 )&lt;br&gt;Computed once per column (not per pixel)&lt;br&gt;shade: r = (r * fog_q8) &gt;&gt; 8  ← integer only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#d79b00;fontSize=10;align=left;" vertex="1" parent="24">
-      <mxGeometry x="970" y="40" width="190" height="145" as="geometry" />
-    </mxCell>
-
-    <mxCell id="54b" value="🔊 Audio (system() call)&lt;br&gt;&lt;b&gt;macOS:&lt;/b&gt; afplay (built-in)&lt;br&gt;&lt;b&gt;Linux:&lt;/b&gt; aplay (ALSA)&lt;br&gt;8-channel debounce (DOOM sndserv)&lt;br&gt;Music: afplay loop subshell&lt;br&gt;stop: pkill -f afplay&lt;br&gt;&lt;i&gt;system() = NOT Norm-safe&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;dashed=1;" vertex="1" parent="24">
-      <mxGeometry x="970" y="200" width="190" height="145" as="geometry" />
-    </mxCell>
-
-    <!-- ===== SECTION 4: t_game CENTRAL STRUCT ===== -->
-    <mxCell id="55" value="④ t_game — Central Data Struct  [cub3d.h]  — passed by pointer to every function" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="20" y="968" width="800" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="56" value="t_game" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="20" y="995" width="1380" height="120" as="geometry" />
-    </mxCell>
-
-    <mxCell id="57" value="&lt;b&gt;t_mlx&lt;/b&gt;&lt;br&gt;mlx_t* mlx&lt;br&gt;t_img screen" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="10" y="38" width="130" height="60" as="geometry" />
-    </mxCell>
-    <mxCell id="58" value="&lt;b&gt;t_map&lt;/b&gt;&lt;br&gt;char** grid&lt;br&gt;width, height" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="155" y="38" width="130" height="60" as="geometry" />
-    </mxCell>
-    <mxCell id="59" value="&lt;b&gt;t_player&lt;/b&gt;&lt;br&gt;pos_x/y, dir_x/y&lt;br&gt;plane_x/y&lt;br&gt;hp, stamina, ammo&lt;br&gt;kills, weapon, flags" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="300" y="30" width="140" height="80" as="geometry" />
-    </mxCell>
-    <mxCell id="60" value="&lt;b&gt;t_door[64]&lt;/b&gt;&lt;br&gt;x, y&lt;br&gt;state (FSM)&lt;br&gt;timer (0..30)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="455" y="38" width="130" height="70" as="geometry" />
-    </mxCell>
-    <mxCell id="61" value="&lt;b&gt;t_sprite[64]&lt;/b&gt;&lt;br&gt;x, y, type&lt;br&gt;hp, alive&lt;br&gt;respawn_timer&lt;br&gt;orig_x/y" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="600" y="30" width="140" height="80" as="geometry" />
-    </mxCell>
-    <mxCell id="62" value="&lt;b&gt;t_weapon[3]&lt;/b&gt;&lt;br&gt;machete/pistol&lt;br&gt;/bolter&lt;br&gt;frames[8], range&lt;br&gt;uses_ammo, locked" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="755" y="30" width="140" height="80" as="geometry" />
-    </mxCell>
-    <mxCell id="63" value="&lt;b&gt;t_npc&lt;/b&gt; + &lt;b&gt;t_jumpscare&lt;/b&gt;&lt;br&gt;+ &lt;b&gt;t_cheat&lt;/b&gt;&lt;br&gt;+ zbuf[1280]&lt;br&gt;+ state, anim_tick&lt;br&gt;+ light_mult, won…" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="910" y="30" width="170" height="80" as="geometry" />
-    </mxCell>
-    <mxCell id="63b" value="&lt;b&gt;tex[4][4]&lt;/b&gt;&lt;br&gt;wall textures&lt;br&gt;4 types × 4 sides&lt;br&gt;+ sp_tex[8]&lt;br&gt;+ door_tex[4]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="1095" y="30" width="140" height="80" as="geometry" />
-    </mxCell>
-    <mxCell id="63c" value="floor_color&lt;br&gt;ceil_color&lt;br&gt;sens_level&lt;br&gt;difficulty&lt;br&gt;high_score" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="56">
-      <mxGeometry x="1250" y="38" width="115" height="70" as="geometry" />
-    </mxCell>
-
-    <!-- ===== SECTION 5: MODULE MAP ===== -->
-    <mxCell id="64" value="⑤ MODULE MAP" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="195" width="200" height="22" as="geometry" />
-    </mxCell>
-
-    <!-- Parsing -->
-    <mxCell id="65" value="src/parsing/" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="220" width="270" height="155" as="geometry" />
-    </mxCell>
-    <mxCell id="66" value="parse_file.c      — orchestrate, open fd&lt;br&gt;parse_elements.c  — NO/SO/WE/EA/F/C&lt;br&gt;parse_map.c       — grid load + char validate&lt;br&gt;validate_map.c    — flood-fill closure check&lt;br&gt;&lt;font color='#888888'&gt;gnl.c (utils/) for line-by-line read&lt;/font&gt;" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="65">
-      <mxGeometry x="8" y="28" width="254" height="120" as="geometry" />
-    </mxCell>
-
-    <!-- MLX -->
-    <mxCell id="67" value="src/mlx/" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="385" width="270" height="110" as="geometry" />
-    </mxCell>
-    <mxCell id="68" value="mlx_init.c   — window + screen image setup&lt;br&gt;mlx_utils.c  — put_pixel / get_pixel (raw addr)&lt;br&gt;mlx_text.c   — string image pool management" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="67">
-      <mxGeometry x="8" y="28" width="254" height="75" as="geometry" />
-    </mxCell>
-
-    <!-- Player + Events -->
-    <mxCell id="69" value="src/player/ + src/events/" style="swimlane;startSize=25;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="505" width="270" height="120" as="geometry" />
-    </mxCell>
-    <mxCell id="70" value="player.c  — move, rotate, collision (split-axis)&lt;br&gt;           stamina drain/regen&lt;br&gt;events.c  — key/mouse hooks, state-aware&lt;br&gt;           flag pattern: set → read in update_player" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="69">
-      <mxGeometry x="8" y="28" width="254" height="85" as="geometry" />
-    </mxCell>
-
-    <!-- Raycast -->
-    <mxCell id="71" value="src/raycast/" style="swimlane;startSize=25;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="635" width="270" height="125" as="geometry" />
-    </mxCell>
-    <mxCell id="72" value="raycast.c — DDA algorithm (4 functions):&lt;br&gt;  init_ray()       — camera_x → ray_dir&lt;br&gt;  init_step()      — side_dist, delta_dist&lt;br&gt;  perform_dda()    — step grid until wall hit&lt;br&gt;  calc_wall_data() — perp_dist → line_h, tex_x" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="71">
-      <mxGeometry x="8" y="28" width="254" height="90" as="geometry" />
-    </mxCell>
-
-    <!-- Render -->
-    <mxCell id="73" value="src/render/ + src/textures/" style="swimlane;startSize=25;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1220" y="770" width="270" height="120" as="geometry" />
-    </mxCell>
-    <mxCell id="74" value="render_frame.c  — per-frame orchestrator&lt;br&gt;render_wall.c   — tex sample + fog Q8 shade&lt;br&gt;render_flat.c   — floor/ceiling solid fill&lt;br&gt;texture_load.c  — PNG → mlx_image (4-type fallback)" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="73">
-      <mxGeometry x="8" y="28" width="254" height="85" as="geometry" />
-    </mxCell>
-
-    <!-- Bonus -->
-    <mxCell id="75" value="src/bonus/ (20 files)" style="swimlane;startSize=25;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1510" y="220" width="270" height="460" as="geometry" />
-    </mxCell>
-    <mxCell id="76" value="door.c       — state FSM + slide anim&lt;br&gt;minimap.c    — top-left tile overlay&lt;br&gt;mouse.c      — poll + warp cursor lock&lt;br&gt;sprite.c     — Z-buffer renderer (Wolf3D Q16)&lt;br&gt;gun.c        — weapon overlay + bob + recoil&lt;br&gt;hud.c        — HP/stamina bars, crosshair&lt;br&gt;combat.c     — shoot(), vector hit detect&lt;br&gt;vignette.c   — edge darkening (step=2)&lt;br&gt;menu.c       — title screen + FSM&lt;br&gt;ghost_ai.c   — chase + sin wobble&lt;br&gt;pickups.c    — consume + 10s respawn&lt;br&gt;restart.c    — full state reset (R key)&lt;br&gt;sound.c      — afplay/aplay wrappers&lt;br&gt;audio.c      — music loop + lighting flicker&lt;br&gt;highscore.c  — read/write highscore.txt&lt;br&gt;dialog.c     — subtitle timer state&lt;br&gt;npc.c        — warden dialog + unlock&lt;br&gt;jumpscare.c  — trigger + anim frames&lt;br&gt;cheat.c      — god mode input buffer&lt;br&gt;settings.c   — sens / difficulty UI" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="75">
-      <mxGeometry x="8" y="30" width="254" height="425" as="geometry" />
-    </mxCell>
-
-    <!-- Utils + Cleanup -->
-    <mxCell id="77" value="src/utils/ + src/cleanup/" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-      <mxGeometry x="1510" y="695" width="270" height="130" as="geometry" />
-    </mxCell>
-    <mxCell id="78" value="gnl.c      — get_next_line (static 1024B buf)&lt;br&gt;utils.c    — ft_strlen/strdup/split/atoi/…&lt;br&gt;cleanup.c  — single exit point&lt;br&gt;             free all → exit()&lt;br&gt;             every error path calls this" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="77">
-      <mxGeometry x="8" y="28" width="254" height="95" as="geometry" />
-    </mxCell>
-
-    <!-- MLX42 external -->
-    <mxCell id="79" value="&lt;b&gt;MLX42  (../MLX42/)&lt;/b&gt;&lt;br&gt;cmake -B build → libmlx42.a&lt;br&gt;OpenGL + GLFW backend&lt;br&gt;mlx_init / mlx_loop / mlx_image_t&lt;br&gt;key/mouse/close hooks&lt;br&gt;&lt;br&gt;&lt;b&gt;macOS link:&lt;/b&gt;&lt;br&gt;-framework Cocoa -framework OpenGL&lt;br&gt;-framework IOKit -lglfw -lm&lt;br&gt;&lt;b&gt;Linux link:&lt;/b&gt;&lt;br&gt;-lglfw -ldl -pthread -lm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;fontSize=10;align=left;" vertex="1" parent="1">
-      <mxGeometry x="1510" y="840" width="270" height="155" as="geometry" />
-    </mxCell>
-
-    <!-- ===== SECTION 6: DESIGN PRINCIPLES ===== -->
-    <mxCell id="80" value="⑥ Design Principles" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="20" y="1132" width="250" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="81" value="① One header (cub3d.h)   — all structs + defines + prototypes. Every .c includes only this.&lt;br&gt;② t_game = god struct     — all state in one place, passed by pointer everywhere, no hidden globals.&lt;br&gt;③ Single exit point       — cleanup_exit(game, msg) frees everything then calls exit(). Every error path calls it.&lt;br&gt;④ memset(&amp;amp;game, 0)      — at program start. Safe to free partially-initialized struct on error.&lt;br&gt;⑤ Parse → validate → render — never enter render loop with invalid map state.&lt;br&gt;⑥ Flag pattern for input  — hooks set flags on t_player. update_player() consumes flags each frame." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#3f51b5;fontSize=10;align=left;" vertex="1" parent="1">
-      <mxGeometry x="20" y="1158" width="820" height="110" as="geometry" />
-    </mxCell>
-
-    <!-- .cub format -->
-    <mxCell id="82" value=".cub File Format" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="860" y="1132" width="200" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="83" value="NO ./textures/north.png   ← path to wall texture&lt;br&gt;SO ./textures/south.png   (NO2/SO2/WE2/EA2 = wall type 2)&lt;br&gt;WE ./textures/west.png&lt;br&gt;EA ./textures/east.png&lt;br&gt;F 34,34,34              ← floor RGB&lt;br&gt;C 0,0,0                ← ceiling RGB&lt;br&gt;&lt;br&gt;1 1 1 1 1 1&lt;br&gt;1 0 N 0 D 1    N/S/E/W = player spawn+dir&lt;br&gt;1 0 0 0 0 1    D = door, H = heal, A = ammo&lt;br&gt;1 G 0 X 0 1    G = ghost, X = exit&lt;br&gt;1 1 1 1 1 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#9673a6;fontSize=10;align=left;fontFamily=Courier New;" vertex="1" parent="1">
-      <mxGeometry x="860" y="1158" width="380" height="170" as="geometry" />
-    </mxCell>
-
-    <!-- Build / Run -->
-    <mxCell id="84" value="Build &amp;amp; Run" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;fontColor=#006EAF;" vertex="1" parent="1">
-      <mxGeometry x="1260" y="1132" width="150" height="22" as="geometry" />
-    </mxCell>
-
-    <mxCell id="85" value="cd project_ref_mac     # (or making-ref on Linux)&lt;br&gt;make                  # cmake MLX42 + compile all .c&lt;br&gt;./cub3D resource/maps/abyss.cub&lt;br&gt;&lt;br&gt;make clean  / make fclean  / make re&lt;br&gt;&lt;br&gt;Prereqs (macOS):  brew install glfw&lt;br&gt;Prereqs (Linux):  apt install libglfw3-dev" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=10;align=left;fontFamily=Courier New;" vertex="1" parent="1">
-      <mxGeometry x="1260" y="1158" width="420" height="125" as="geometry" />
-    </mxCell>
-
-    <!-- Arrows from game loop to t_game -->
-    <mxCell id="86" value="reads/writes" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#d6b656;exitX=0.5;exitY=1;" edge="1" source="24" target="56" parent="1">
-      <mxGeometry relative="1" as="geometry" />
-    </mxCell>
-
-  </root>
-</mxGraphModel>
+<mxfile host="app.diagrams.net">
+  <diagram id="MFbjIAFgzij2DW4lQ8Yu" name="Page-1">
+    <mxGraphModel dx="2216" dy="972" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" value="cub3D — Architecture Overview (MLX42 / Survival Horror Reference)" vertex="1">
+          <mxGeometry height="40" width="900" x="300" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="① STARTUP (runs once)" vertex="1">
+          <mxGeometry height="22" width="260" x="20" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;dashed=1;fontSize=10;" value="&lt;b&gt;map.cub&lt;/b&gt;&lt;br&gt;NO/SO/WE/EA paths&lt;br&gt;F/C colors + grid" vertex="1">
+          <mxGeometry height="65" width="120" x="20" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="&lt;b&gt;main.c&lt;/b&gt;&lt;br&gt;memset(&amp;game,0)&lt;br&gt;entry point" vertex="1">
+          <mxGeometry height="65" width="120" x="185" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;parse_cub()&lt;/b&gt;&lt;br&gt;parse_elements&lt;br&gt;parse_map&lt;br&gt;validate_map (flood-fill)" vertex="1">
+          <mxGeometry height="75" width="130" x="355" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="&lt;b&gt;init_mlx()&lt;/b&gt;&lt;br&gt;window + screen&lt;br&gt;image buffer" vertex="1">
+          <mxGeometry height="65" width="120" x="535" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;load_textures()&lt;/b&gt;&lt;br&gt;PNG → mlx_image&lt;br&gt;4 types × 4 sides" vertex="1">
+          <mxGeometry height="65" width="130" x="705" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" value="&lt;b&gt;set hooks&lt;/b&gt;&lt;br&gt;key_hook&lt;br&gt;mouse_hook&lt;br&gt;render_frame" vertex="1">
+          <mxGeometry height="75" width="120" x="885" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="&lt;b&gt;mlx_loop()&lt;/b&gt;&lt;br&gt;blocks forever&lt;br&gt;fires ~60fps" vertex="1">
+          <mxGeometry height="65" width="120" x="1055" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="14" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" source="8" style="edgeStyle=orthogonalEdgeStyle;" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="9" style="edgeStyle=orthogonalEdgeStyle;" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="② STATE MACHINE" vertex="1">
+          <mxGeometry height="22" width="220" x="1230" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="18" parent="1" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" value="game-&gt;state" vertex="1">
+          <mxGeometry height="80" width="130" x="1240" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="&lt;b&gt;STATE_MENU&lt;/b&gt;&lt;br&gt;render_menu()&lt;br&gt;handle_menu_key()&lt;br&gt;sensitivity slider" vertex="1">
+          <mxGeometry height="70" width="150" x="1430" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;STATE_PLAYING&lt;/b&gt;&lt;br&gt;full game loop&lt;br&gt;(see Section 3)" vertex="1">
+          <mxGeometry height="60" width="150" x="1430" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="21" edge="1" parent="1" source="18" style="edgeStyle=elbowEdgeStyle;" target="19" value="MENU">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" edge="1" parent="1" source="18" style="edgeStyle=elbowEdgeStyle;" target="20" value="PLAYING">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="23" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" target="18" value="each frame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" parent="1" style="swimlane;startSize=30;fillColor=#fffde7;strokeColor=#d6b656;fontSize=11;fontStyle=1;align=center;" value="③ PER-FRAME LOOP — render_frame(t_game *game)   [src/render/render_frame.c]" vertex="1">
+          <mxGeometry height="760" width="1190" x="20" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="25" parent="24" style="swimlane;startSize=28;fillColor=#e3f2fd;strokeColor=#6c8ebf;fontSize=10;fontStyle=1;align=center;" value="UPDATE phase (state changes before draw)" vertex="1">
+          <mxGeometry height="690" width="290" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="26" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_mouse_look()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;mouse.c — poll pos, rotate, warp center&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="27" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_player()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;player.c — WASD move, rotate, stamina&lt;br&gt;split-axis collision (slide not stick)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="15" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="28" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_ghosts()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;ghost_ai.c — chase + sin wobble&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="161" as="geometry" />
+        </mxCell>
+        <mxCell id="29" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_pickups()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;pickups.c — walk-over consume, respawn tick&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="219" as="geometry" />
+        </mxCell>
+        <mxCell id="30" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_aim()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;combat.c — crosshair red/white feedback&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="277" as="geometry" />
+        </mxCell>
+        <mxCell id="31" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="dialog_update()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;dialog.c — subtitle timer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="32" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_lighting() + ambient_scare_tick()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;audio.c — fog flicker, random growl trigger&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="33" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_npc() + update_jumpscare()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;npc.c / jumpscare.c — interact + scare anim&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="451" as="geometry" />
+        </mxCell>
+        <mxCell id="34" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_combat() + update_weapon_anim()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;combat.c / gun.c — DMG tick, win check&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="509" as="geometry" />
+        </mxCell>
+        <mxCell id="35" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#bbdefb;strokeColor=#6c8ebf;fontSize=10;" value="update_doors()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;door.c — slide animation timer tick&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="260" x="15" y="567" as="geometry" />
+        </mxCell>
+        <mxCell id="36" parent="25" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;fontStyle=1;" value="anim_tick++" vertex="1">
+          <mxGeometry height="38" width="260" x="15" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="37" parent="24" style="swimlane;startSize=28;fillColor=#fff3e0;strokeColor=#d79b00;fontSize=10;fontStyle=1;align=center;" value="RENDER phase (write pixels to screen buffer)" vertex="1">
+          <mxGeometry height="690" width="330" x="330" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="38" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;fontStyle=1;" value="render_world(game)  ×1280 raycasts" vertex="1">
+          <mxGeometry height="38" width="300" x="15" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="39" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fffde7;strokeColor=#d79b00;fontSize=9;" value="init_ray() → camera_x, ray_dir_x/y&lt;br&gt;init_step() → side_dist, step_x/y&lt;br&gt;perform_dda() → hit cell + hit_type&lt;br&gt;calc_wall_data() → perp_dist, line_h" vertex="1">
+          <mxGeometry height="72" width="290" x="25" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="40" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="draw_column() — render_wall.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;select tex by wall_type+side, Q8 fog shade&lt;br&gt;door: full-stretch + slide offset&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="300" x="15" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="41" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="draw_flat() — render_flat.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;floor + ceiling solid fill (F/C colors)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="228" as="geometry" />
+        </mxCell>
+        <mxCell id="42" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_sprites() — sprite.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;sort dist² desc, project via inv-cam matrix&lt;br&gt;Z-buffer check per column, Q16 scaler&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="300" x="15" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="43" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="apply_vignette() — vignette.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;darken edges (step=2 perf trick)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="358" as="geometry" />
+        </mxCell>
+        <mxCell id="44" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_gun() — gun.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;weapon overlay + bob + recoil offset&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="45" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_minimap() — minimap.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;top-left tile overlay, door color by state&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="474" as="geometry" />
+        </mxCell>
+        <mxCell id="46" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_hud() — hud.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;HP bar, stamina bar, crosshair (aim_on_target→red)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="532" as="geometry" />
+        </mxCell>
+        <mxCell id="47" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_jumpscare() / render_npc_dialog()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;jumpscare.c / dialog.c&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="300" x="15" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="47b" parent="37" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffe0b2;strokeColor=#d79b00;fontSize=10;" value="render_cheat() / render_settings() / render_menu()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;gated by game-&gt;state&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="300" x="15" y="648" as="geometry" />
+        </mxCell>
+        <mxCell id="48" parent="24" style="swimlane;startSize=28;fillColor=#fce4ec;strokeColor=#b85450;fontSize=10;fontStyle=1;align=center;" value="FLUSH (put buffer to screen)" vertex="1">
+          <mxGeometry height="185" width="330" x="680" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="49" parent="48" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8bbd0;strokeColor=#b85450;fontSize=10;" value="mlx_put_image_to_window()&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;+ screen shake offset (sx,sy)&lt;br&gt;head bob: sy -= |sin(tick)|*amp when walking&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="300" x="15" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="50" parent="48" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8bbd0;strokeColor=#b85450;fontSize=10;" value="render_text_overlay() — mlx_text.c&lt;br&gt;&lt;font color=&#39;#555555&#39;&gt;mlx_string_put ON TOP of window&lt;br&gt;ammo / kills / death msg / win msg&lt;br&gt;Must come AFTER put_image&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="300" x="15" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="51" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;" value="⚡ zbuf[1280]&lt;br&gt;Wall perp_dist per column&lt;br&gt;during render_world.&lt;br&gt;Sprite Z-test: transform_y &lt; zbuf[x]&lt;br&gt;→ wall occludes sprite column" vertex="1">
+          <mxGeometry height="100" width="230" x="680" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="52" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" value="🎮 Events (async)&lt;br&gt;&lt;hr/&gt;key_hook() — events.c&lt;br&gt;Sets flags on t_player:&lt;br&gt;move_fb / move_lr / rotate&lt;br&gt;sprint / weapon switch&lt;br&gt;&lt;br&gt;DO NOT move directly in hook&lt;br&gt;→ update_player() reads flags" vertex="1">
+          <mxGeometry height="125" width="240" x="680" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="53" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#c8e6c9;strokeColor=#82b366;fontSize=10;" value="🚪 Door State Machine&lt;br&gt;&lt;hr/&gt;CLOSED → OPENING → OPEN&lt;br&gt;→ CLOSING → CLOSED&lt;br&gt;&lt;br&gt;Map cell stays &#39;D&#39; always.&lt;br&gt;is_blocked: D + !OPEN → blocked&lt;br&gt;DDA: D + OPEN → ray passes" vertex="1">
+          <mxGeometry height="120" width="250" x="680" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="53b" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e8eaf6;strokeColor=#5c6bc0;fontSize=10;" value="🎯 Combat Hit Detection&lt;br&gt;&lt;hr/&gt;fwd = dx·dir_x + dy·dir_y&lt;br&gt;lat = dx·(-dir_y) + dy·dir_x&lt;br&gt;&lt;br&gt;hit if fwd &gt; 0 &amp;amp;&amp;amp; fwd &lt; range&lt;br&gt;     &amp;amp;&amp;amp; |lat| &lt; radius&lt;br&gt;&lt;br&gt;machete = short/wide&lt;br&gt;gun = long/narrow" vertex="1">
+          <mxGeometry height="130" width="260" x="675" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="54" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff3e0;strokeColor=#d79b00;fontSize=10;" value="🌫 Distance Fog&lt;br&gt;&lt;hr/&gt;fog_q8 = clamp(1-(dist-START)&lt;br&gt;/(END-START), FLOOR, 1.0)&lt;br&gt;* light_mult * 256&lt;br&gt;&lt;br&gt;Computed once per column&lt;br&gt;shade: r=(r*fog_q8)&gt;&gt;8" vertex="1">
+          <mxGeometry height="110" width="140" x="1030" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="54b" parent="24" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;dashed=1;" value="🔊 Audio&lt;br&gt;&lt;hr/&gt;macOS: afplay (built-in)&lt;br&gt;Linux:  aplay (ALSA)&lt;br&gt;&lt;br&gt;8-channel debounce&lt;br&gt;(DOOM sndserv-inspired)&lt;br&gt;&lt;br&gt;system() = NOT Norm-safe" vertex="1">
+          <mxGeometry height="120" width="140" x="1030" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="55" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="④ t_game — Central Data Struct  [cub3d.h]  — passed by pointer to every function" vertex="1">
+          <mxGeometry height="22" width="800" x="20" y="968" as="geometry" />
+        </mxCell>
+        <mxCell id="56" parent="1" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;fontStyle=1;align=center;" value="t_game" vertex="1">
+          <mxGeometry height="120" width="1380" x="20" y="995" as="geometry" />
+        </mxCell>
+        <mxCell id="57" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="&lt;b&gt;t_mlx&lt;/b&gt;&lt;br&gt;mlx_t* mlx&lt;br&gt;t_img screen" vertex="1">
+          <mxGeometry height="60" width="130" x="10" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="58" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;t_map&lt;/b&gt;&lt;br&gt;char** grid&lt;br&gt;width, height" vertex="1">
+          <mxGeometry height="60" width="130" x="155" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="59" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="&lt;b&gt;t_player&lt;/b&gt;&lt;br&gt;pos_x/y · dir_x/y&lt;br&gt;plane_x/y&lt;br&gt;hp · stamina · ammo&lt;br&gt;kills · weapon · flags" vertex="1">
+          <mxGeometry height="80" width="140" x="300" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="60" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="&lt;b&gt;t_door[64]&lt;/b&gt;&lt;br&gt;x, y&lt;br&gt;state (FSM)&lt;br&gt;timer (0..30)" vertex="1">
+          <mxGeometry height="70" width="130" x="455" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="61" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="&lt;b&gt;t_sprite[64]&lt;/b&gt;&lt;br&gt;x · y · type&lt;br&gt;hp · alive&lt;br&gt;respawn_timer&lt;br&gt;orig_x/y" vertex="1">
+          <mxGeometry height="80" width="140" x="600" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="62" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="&lt;b&gt;t_weapon[3]&lt;/b&gt;&lt;br&gt;machete · pistol · bolter&lt;br&gt;frames[8] · range&lt;br&gt;uses_ammo · locked" vertex="1">
+          <mxGeometry height="70" width="140" x="755" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="63" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff9c4;strokeColor=#d6b656;fontSize=10;" value="&lt;b&gt;t_npc + t_jumpscare&lt;/b&gt;&lt;br&gt;+ t_cheat&lt;br&gt;+ zbuf[1280]&lt;br&gt;+ state · anim_tick&lt;br&gt;+ light_mult · won" vertex="1">
+          <mxGeometry height="80" width="160" x="910" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="63b" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;tex[4][4]&lt;/b&gt;&lt;br&gt;wall textures&lt;br&gt;4 types × 4 sides&lt;br&gt;+ sp_tex[8]&lt;br&gt;+ door_tex[4]" vertex="1">
+          <mxGeometry height="80" width="140" x="1085" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="63c" parent="56" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" value="floor_color&lt;br&gt;ceil_color&lt;br&gt;sens_level&lt;br&gt;difficulty&lt;br&gt;high_score" vertex="1">
+          <mxGeometry height="70" width="125" x="1240" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="64" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="⑤ MODULE MAP" vertex="1">
+          <mxGeometry height="22" width="200" x="1220" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="65" parent="1" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;align=center;" value="src/parsing/" vertex="1">
+          <mxGeometry height="155" width="270" x="1220" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="66" parent="65" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="parse_file.c      — orchestrate, open fd&lt;br&gt;parse_elements.c  — NO/SO/WE/EA/F/C&lt;br&gt;parse_map.c       — grid load + char validate&lt;br&gt;validate_map.c    — flood-fill closure check&lt;br&gt;&lt;font color=&#39;#888888&#39;&gt;gnl.c (utils/) for line-by-line read&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="67" parent="1" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;align=center;" value="src/mlx/" vertex="1">
+          <mxGeometry height="110" width="270" x="1220" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="68" parent="67" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="mlx_init.c   — window + screen image setup&lt;br&gt;mlx_utils.c  — put_pixel / get_pixel (raw addr)&lt;br&gt;mlx_text.c   — string image pool management" vertex="1">
+          <mxGeometry height="75" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="69" parent="1" style="swimlane;startSize=25;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;align=center;" value="src/player/ + src/events/" vertex="1">
+          <mxGeometry height="120" width="270" x="1220" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="70" parent="69" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="player.c  — move, rotate, collision (split-axis)&lt;br&gt;           stamina drain/regen&lt;br&gt;events.c  — key/mouse hooks, state-aware&lt;br&gt;           flag pattern: set → read in update_player" vertex="1">
+          <mxGeometry height="85" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="71" parent="1" style="swimlane;startSize=25;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;align=center;" value="src/raycast/" vertex="1">
+          <mxGeometry height="125" width="270" x="1220" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="72" parent="71" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="raycast.c — DDA algorithm (4 functions):&lt;br&gt;  init_ray()       — camera_x → ray_dir&lt;br&gt;  init_step()      — side_dist, delta_dist&lt;br&gt;  perform_dda()    — step grid until wall hit&lt;br&gt;  calc_wall_data() — perp_dist → line_h, tex_x" vertex="1">
+          <mxGeometry height="90" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="73" parent="1" style="swimlane;startSize=25;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;align=center;" value="src/render/ + src/textures/" vertex="1">
+          <mxGeometry height="120" width="270" x="1220" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="74" parent="73" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="render_frame.c  — per-frame orchestrator&lt;br&gt;render_wall.c   — tex sample + fog Q8 shade&lt;br&gt;render_flat.c   — floor/ceiling solid fill&lt;br&gt;texture_load.c  — PNG → mlx_image (4-type fallback)" vertex="1">
+          <mxGeometry height="85" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="75" parent="1" style="swimlane;startSize=25;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;align=center;" value="src/bonus/ (20 files)" vertex="1">
+          <mxGeometry height="460" width="270" x="1510" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="76" parent="75" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="door.c       — state FSM + slide anim&lt;br&gt;minimap.c    — top-left tile overlay&lt;br&gt;mouse.c      — poll + warp cursor lock&lt;br&gt;sprite.c     — Z-buffer renderer (Wolf3D Q16)&lt;br&gt;gun.c        — weapon overlay + bob + recoil&lt;br&gt;hud.c        — HP/stamina bars, crosshair&lt;br&gt;combat.c     — shoot(), vector hit detect&lt;br&gt;vignette.c   — edge darkening (step=2)&lt;br&gt;menu.c       — title screen + FSM&lt;br&gt;ghost_ai.c   — chase + sin wobble&lt;br&gt;pickups.c    — consume + 10s respawn&lt;br&gt;restart.c    — full state reset (R key)&lt;br&gt;sound.c      — afplay/aplay wrappers&lt;br&gt;audio.c      — music loop + lighting flicker&lt;br&gt;highscore.c  — read/write highscore.txt&lt;br&gt;dialog.c     — subtitle timer state&lt;br&gt;npc.c        — warden dialog + unlock&lt;br&gt;jumpscare.c  — trigger + anim frames&lt;br&gt;cheat.c      — god mode input buffer&lt;br&gt;settings.c   — sens / difficulty UI" vertex="1">
+          <mxGeometry height="425" width="254" x="8" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="77" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;align=center;" value="src/utils/ + src/cleanup/" vertex="1">
+          <mxGeometry height="130" width="270" x="1510" y="695" as="geometry" />
+        </mxCell>
+        <mxCell id="78" parent="77" style="text;html=1;align=left;verticalAlign=top;fontSize=10;" value="gnl.c      — get_next_line (static 1024B buf)&lt;br&gt;utils.c    — ft_strlen/strdup/split/atoi/…&lt;br&gt;cleanup.c  — single exit point&lt;br&gt;             free all → exit()&lt;br&gt;             every error path calls this" vertex="1">
+          <mxGeometry height="95" width="254" x="8" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="79" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;fontSize=10;" value="&lt;b&gt;MLX42  (../MLX42/)&lt;/b&gt;&lt;br&gt;&lt;hr/&gt;cmake -B build → libmlx42.a&lt;br&gt;OpenGL + GLFW backend&lt;br&gt;mlx_init / mlx_loop / mlx_image_t&lt;br&gt;&lt;br&gt;&lt;b&gt;macOS:&lt;/b&gt; -framework Cocoa/OpenGL/IOKit&lt;br&gt;&lt;b&gt;Linux:&lt;/b&gt; -ldl -pthread -lglfw" vertex="1">
+          <mxGeometry height="145" width="270" x="1510" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="80" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="⑥ Design Principles" vertex="1">
+          <mxGeometry height="22" width="250" x="20" y="1132" as="geometry" />
+        </mxCell>
+        <mxCell id="81" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e8eaf6;strokeColor=#3f51b5;fontSize=10;" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;① One header (cub3d.h)        — all structs + defines + prototypes. Every .c includes only this.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;② t_game = god struct           — all state in one place, passed by pointer everywhere, no hidden globals.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;③ Single exit point             — cleanup_exit(game, msg) frees everything then calls exit(). Every error path calls it.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;④ memset(&amp;amp;game, 0) at start  — safe to free partially-initialized struct on any early error.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;⑤&amp;nbsp;Parse → validate → render    — never enter render loop with invalid map state.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;⑥ Flag pattern for input        — hooks set flags on t_player. update_player() consumes flags each frame." vertex="1">
+          <mxGeometry height="110" width="820" x="20" y="1158" as="geometry" />
+        </mxCell>
+        <mxCell id="82" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value=".cub File Format" vertex="1">
+          <mxGeometry height="22" width="200" x="860" y="1132" as="geometry" />
+        </mxCell>
+        <mxCell id="83" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#f3e5f5;strokeColor=#9673a6;fontSize=10;fontFamily=Courier New;" value="&lt;div style=&quot;text-align: justify;&quot;&gt;NO ./textures/north.png   ← wall texture path&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;SO ./textures/south.png   (NO2/SO2 = wall type 2)&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;WE ./textures/west.png&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;EA ./textures/east.png&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;F 34,34,34     ← floor RGB&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;C 0,0,0        ← ceiling RGB&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;1 1 1 1 1 1&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;1 0 N 0 D 1    N=player spawn, D=door&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;1 G 0 X 0 1    G=ghost, X=exit, H=heal, A=ammo&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;1 1 1 1 1 1&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="380" x="860" y="1158" as="geometry" />
+        </mxCell>
+        <mxCell id="84" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#006EAF;" value="Build &amp;amp; Run" vertex="1">
+          <mxGeometry height="22" width="150" x="1260" y="1132" as="geometry" />
+        </mxCell>
+        <mxCell id="85" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=10;fontFamily=Courier New;" value="&lt;div style=&quot;text-align: justify;&quot;&gt;cd project_ref_mac      # macOS&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;cd making-ref           # Linux&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;make&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;./cub3D resource/maps/abyss.cub&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;make clean / fclean / re&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;Prereqs macOS:  brew install glfw&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;Prereqs Linux:  apt install libglfw3-dev&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="420" x="1260" y="1158" as="geometry" />
+        </mxCell>
+        <mxCell id="86" edge="1" parent="1" source="24" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#d6b656;exitX=0.5;exitY=1;" target="56" value="reads/writes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
