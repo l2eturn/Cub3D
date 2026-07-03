@@ -5,6 +5,90 @@
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TD
+    classDef blue   fill:#dae8fc,stroke:#6c8ebf,color:#000
+    classDef green  fill:#d5e8d4,stroke:#82b366,color:#000
+    classDef orange fill:#ffe6cc,stroke:#d79b00,color:#000
+    classDef purple fill:#e1d5e7,stroke:#9673a6,color:#000
+    classDef yellow fill:#fff2cc,stroke:#d6b656,color:#000
+    classDef red    fill:#f8cecc,stroke:#b85450,color:#000
+    classDef gray   fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4 3
+
+    CUB(["📄 map.cub\nNO/SO/WE/EA · F/C · grid"]):::gray
+
+    subgraph BOOT["① Startup  —  runs once"]
+        MAIN["main.c\nmemset &game = 0"]:::blue
+        PARSE["parse_cub()\nparse_elements · parse_map\nvalidate_map  flood-fill"]:::green
+        MLXI["init_mlx()\nwindow + screen image buffer"]:::blue
+        TEX["load_textures()\nPNG → mlx_image · 4 types × 4 sides"]:::green
+        HOOKS["register hooks\nkey_hook · mouse_hook · render_frame"]:::red
+        MLOOP(["mlx_loop()  ∞  ~60 fps"]):::blue
+    end
+
+    CUB --> MAIN --> PARSE --> MLXI --> TEX --> HOOKS --> MLOOP
+
+    MLOOP -- each frame --> SM{"game→state"}:::yellow
+
+    SM -- MENU    --> SMENU["render_menu()\nsensitivity · difficulty"]:::purple
+    SM -- PLAYING --> PF
+
+    subgraph PF["③ Per-Frame Loop  —  render_frame(t_game*)"]
+        direction LR
+
+        subgraph UPD["UPDATE"]
+            direction TB
+            UA["update_mouse_look   mouse.c\nupdate_player         player.c\nupdate_ghosts         ghost_ai.c"]:::blue
+            UB["update_pickups      pickups.c\nupdate_aim            combat.c\ndialog_update         dialog.c"]:::blue
+            UC["update_lighting     audio.c\nupdate_combat         combat.c\nupdate_doors          door.c"]:::blue
+            UA --> UB --> UC
+        end
+
+        subgraph RND["RENDER  (write to pixel buffer)"]
+            direction TB
+            RA["render_world × 1280 columns\nDDA raycast → draw_column\nfog Q8 shade · draw_flat"]:::orange
+            RB["render_sprites\nsort dist² · Z-buffer · project"]:::orange
+            RC["apply_vignette · render_gun\nrender_minimap · render_hud"]:::orange
+            RA --> RB --> RC
+        end
+
+        subgraph FLH["FLUSH"]
+            direction TB
+            FA["mlx_put_image_to_window\n+ screen shake offset"]:::red
+            FB["render_text_overlay\nmlx_string_put on top of window"]:::red
+            FA --> FB
+        end
+
+        UPD --> RND --> FLH
+    end
+
+    subgraph TGAME["④ t_game  —  central struct  (passed by pointer everywhere)"]
+        direction LR
+        TM["t_mlx\nwindow · img"]:::blue
+        TMP["t_map\nchar** grid"]:::green
+        TP["t_player\npos · dir · plane\nhp · stamina · ammo"]:::red
+        TD["t_door[64]\nstate FSM · timer"]:::purple
+        TS["t_sprite[64]\ntype · hp · alive\nrespawn_timer"]:::purple
+        TW["t_weapon[3]\nmachete · pistol · bolter\nframes[8] · range"]:::purple
+        TX["zbuf[1280]\nanim_tick · state\nlight_mult · won"]:::yellow
+    end
+
+    PF <-- "reads / writes" --> TGAME
+
+    subgraph EXT["⑤ External"]
+        direction LR
+        MLX42["MLX42\nlibmlx42.a via cmake\nOpenGL + GLFW"]:::gray
+        AUDIO["OS Audio\nmacOS: afplay\nLinux:  aplay"]:::gray
+    end
+
+    BOOT -. "links against" .-> MLX42
+    PF   -. "system() sound" .-> AUDIO
+```
+
+---
+
 ## สารบัญ
 
 1. [ภาพรวม: เกมนี้คืออะไร](#1-ภาพรวม)
